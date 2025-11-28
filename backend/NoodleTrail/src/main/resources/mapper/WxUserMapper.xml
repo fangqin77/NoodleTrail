@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.noodletrail.user.mapper.WxUserMapper">
+
+    <select id="selectByOpenid" resultType="com.example.noodletrail.user.entity.WxUser">
+        SELECT id,
+               openid,
+               unionid,
+               nickname,
+               avatar_url      AS avatarUrl,
+               gender,
+               city,
+               country,
+               province,
+               create_time     AS createTime,
+               update_time     AS updateTime,
+               last_login_time AS lastLoginTime
+        FROM wx_user
+        WHERE openid = #{openid}
+    </select>
+
+    <insert id="insert" parameterType="com.example.noodletrail.user.entity.WxUser" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO wx_user (openid, unionid, nickname, avatar_url, gender, city, country, province)
+        VALUES (#{openid}, #{unionid}, #{nickname}, #{avatarUrl}, #{gender}, #{city}, #{country}, #{province})
+    </insert>
+
+    <update id="updateById" parameterType="com.example.noodletrail.user.entity.WxUser">
+        UPDATE wx_user
+        SET nickname = #{nickname},
+            avatar_url = #{avatarUrl},
+            gender = #{gender},
+            city = #{city},
+            country = #{country},
+            province = #{province},
+            last_login_time = NOW()
+        WHERE id = #{id}
+    </update>
+
+</mapper>

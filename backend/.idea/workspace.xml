@@ -1,28 +1,120 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ca39d76-9943-46a1-934e-1f1bcce6a7a4" name="Changes" comment="" />
+    <list default="true" id="4ca39d76-9943-46a1-934e-1f1bcce6a7a4" name="Changes" comment="完成陕西美食和非遗接口">
+      <change afterPath="$PROJECT_DIR$/../.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/NoodleTrail.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/backend.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/0c2fc3ce-9c0a-4902-87ed-ce85e6671794.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/0c2fc3ce-9c0a-4902-87ed-ce85e6671794/storage_v2/_src_/schema/shan.Qtk1AA.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/API_Documentation.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/checkin/controller/CheckinController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/checkin/dto/CheckinDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/checkin/entity/UserCheckin.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/checkin/mapper/CheckinMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/checkin/service/CheckinService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/checkin/service/OssService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/checkin/service/impl/CheckinServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/checkin/util/MapUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/checkin/vo/CheckinVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/config/JacksonConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/food/controller/ShaanxiFoodController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/food/entity/ShaanxiFood.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/food/mapper/ShaanxiFoodMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/food/service/ShaanxiFoodService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/food/service/impl/ShaanxiFoodServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/heritage/controller/ShaanxiIntangibleHeritageController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/heritage/entity/ShaanxiIntangibleHeritage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/heritage/mapper/ShaanxiIntangibleHeritageMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/heritage/service/ShaanxiIntangibleHeritageService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/heritage/service/impl/ShaanxiIntangibleHeritageServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NoodleTrail/src/main/resources/mapper/CheckinMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NoodleTrail/src/main/resources/mapper/ShaanxiFoodMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NoodleTrail/src/main/resources/mapper/ShaanxiIntangibleHeritageMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NoodleTrail/src/main/resources/shaanxi_food.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NoodleTrail/src/main/resources/shaanxi_intangible_heritage.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NoodleTrail/src/test/java/com/example/noodletrail/food/controller/ShaanxiFoodControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NoodleTrail/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/NoodleTrail/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NoodleTrail/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/NoodleTrail/src/main/resources/application.properties" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 5
-}]]></component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="localRepository" value="E:\soft\Apache\apache-maven-3.9.9\repository" />
+        <option name="userSettingsFile" value="E:\soft\Apache\apache-maven-3.9.9\conf\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="35RqnosTUyjJiZ0wwhGRFEJiqmX" />
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Spring Boot.NoodleTrailApplication.executor": "Run",
+    "git-widget-placeholder": "backend",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "E:/pbl2",
+    "last_opened_file_path": "E:/pbl2/chef_ai/chef_ai_backend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "MavenSettings",
     "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql_aurora_aws",
+      "mysql"
+    ]
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration name="NoodleTrailApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="NoodleTrail" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.noodletrail.NoodleTrailApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -40,10 +132,32 @@
       <option name="presentableId" value="Default" />
       <updated>1763083403462</updated>
       <workItem from="1763083405359" duration="108000" />
+      <workItem from="1763437719669" duration="2304000" />
+      <workItem from="1763532089898" duration="1242000" />
+      <workItem from="1763604638501" duration="1202000" />
+      <workItem from="1763693197365" duration="4596000" />
+      <workItem from="1763949142611" duration="102000" />
+      <workItem from="1763949253764" duration="4226000" />
+      <workItem from="1763974147902" duration="3996000" />
+      <workItem from="1764028826151" duration="10292000" />
     </task>
+    <task id="LOCAL-00001" summary="完成陕西美食和非遗接口">
+      <option name="closed" value="true" />
+      <created>1764036822336</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1764036822336</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="fitst commit" />
+    <MESSAGE value="完成陕西美食和非遗接口" />
+    <option name="LAST_COMMIT_MESSAGE" value="完成陕西美食和非遗接口" />
   </component>
 </project>

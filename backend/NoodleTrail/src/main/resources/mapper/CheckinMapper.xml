@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.noodletrail.checkin.mapper.CheckinMapper">
+
+    <insert id="insert" parameterType="com.example.noodletrail.checkin.entity.UserCheckin">
+        INSERT INTO user_checkin (user_id, content, location_name, longitude, latitude, image_urls)
+        VALUES (#{userId}, #{content}, #{locationName}, #{longitude}, #{latitude}, #{imageUrls})
+    </insert>
+
+    <select id="selectByUserId" resultType="com.example.noodletrail.checkin.entity.UserCheckin">
+        SELECT id,
+               user_id       AS userId,
+               content,
+               location_name AS locationName,
+               longitude,
+               latitude,
+               image_urls    AS imageUrls,
+               create_time   AS createTime
+        FROM user_checkin
+        WHERE user_id = #{userId}
+        ORDER BY create_time DESC
+        LIMIT #{offset}, #{size}
+    </select>
+
+</mapper>

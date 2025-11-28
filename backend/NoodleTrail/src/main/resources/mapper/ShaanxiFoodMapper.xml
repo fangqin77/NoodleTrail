@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.noodletrail.food.mapper.ShaanxiFoodMapper">
+
+    <!-- 按名称或标签查询，返回实体列表 -->
+    <select id="searchByNameOrTag" resultType="com.example.noodletrail.food.entity.ShaanxiFood">
+        SELECT id,
+               food_name  AS foodName,
+               image_url  AS imageUrl,
+               history,
+               introduction,
+               features,
+               tag,
+               city
+        FROM shaanxi_food
+        <where>
+            <if test="name != null and name != ''">
+                AND food_name LIKE CONCAT('%', #{name}, '%')
+            </if>
+            <if test="tag != null and tag != ''">
+                AND (tag LIKE CONCAT('%', #{tag}, '%') OR FIND_IN_SET(#{tag}, tag))
+            </if>
+        </where>
+        ORDER BY id ASC
+    </select>
+
+    <!-- 按名称或标签查询，返回 Map 列表 -->
+    <select id="searchByNameOrTagAsMap" resultType="java.util.Map">
+        SELECT id,
+               food_name  AS foodName,
+               image_url  AS imageUrl,
+               history,
+               introduction,
+               features,
+               tag,
+               city
+        FROM shaanxi_food
+        <where>
+            <if test="name != null and name != ''">
+                AND food_name LIKE CONCAT('%', #{name}, '%')
+            </if>
+            <if test="tag != null and tag != ''">
+                AND (tag LIKE CONCAT('%', #{tag}, '%') OR FIND_IN_SET(#{tag}, tag))
+            </if>
+        </where>
+        ORDER BY id ASC
+    </select>
+
+    <!-- 新增：按 id / 名称 / 标签组合查询，返回实体列表 -->
+    <select id="queryByConditions" resultType="com.example.noodletrail.food.entity.ShaanxiFood">
+        SELECT id,
+               food_name  AS foodName,
+               image_url  AS imageUrl,
+               history,
+               introduction,
+               features,
+               tag,
+               city
+        FROM shaanxi_food
+        <where>
+            <if test="id != null">
+                AND id = #{id}
+            </if>
+            <if test="foodName != null and foodName != ''">
+                AND food_name LIKE CONCAT('%', #{foodName}, '%')
+            </if>
+            <if test="tag != null and tag != ''">
+                AND (tag LIKE CONCAT('%', #{tag}, '%') OR FIND_IN_SET(#{tag}, tag))
+            </if>
+        </where>
+        ORDER BY id ASC
+    </select>
+
+    <!-- 新增：单表按城市查询 -->
+    <select id="selectByCity" resultType="com.example.noodletrail.food.entity.ShaanxiFood">
+        SELECT id,
+               food_name  AS foodName,
+               image_url  AS imageUrl,
+               history,
+               introduction,
+               features,
+               tag,
+               city
+        FROM shaanxi_food
+        WHERE city LIKE CONCAT('%', #{city}, '%')
+        ORDER BY id ASC
+    </select>
+
+    <!-- 新增：单表按城市 + 标签查询 -->
+    <select id="selectByCityAndTag" resultType="com.example.noodletrail.food.entity.ShaanxiFood">
+        SELECT id,
+               food_name  AS foodName,
+               image_url  AS imageUrl,
+               history,
+               introduction,
+               features,
+               tag,
+               city
+        FROM shaanxi_food
+        WHERE city LIKE CONCAT('%', #{city}, '%')
+          AND tag = #{tag}
+        ORDER BY id ASC
+    </select>
+
+</mapper>
