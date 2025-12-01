@@ -11,7 +11,8 @@
                introduction,
                features,
                tag,
-               city
+               city,
+               feature_tags AS featureTags
         FROM shaanxi_food
         <where>
             <if test="name != null and name != ''">
@@ -33,7 +34,8 @@
                introduction,
                features,
                tag,
-               city
+               city,
+               feature_tags AS featureTags
         FROM shaanxi_food
         <where>
             <if test="name != null and name != ''">
@@ -55,7 +57,8 @@
                introduction,
                features,
                tag,
-               city
+               city,
+               feature_tags AS featureTags
         FROM shaanxi_food
         <where>
             <if test="id != null">
@@ -80,7 +83,8 @@
                introduction,
                features,
                tag,
-               city
+               city,
+               feature_tags AS featureTags
         FROM shaanxi_food
         WHERE city LIKE CONCAT('%', #{city}, '%')
         ORDER BY id ASC
@@ -95,11 +99,49 @@
                introduction,
                features,
                tag,
-               city
+               city,
+               feature_tags AS featureTags
         FROM shaanxi_food
         WHERE city LIKE CONCAT('%', #{city}, '%')
           AND tag = #{tag}
         ORDER BY id ASC
+    </select>
+
+    <!-- 新增：按特色标签列表筛选（非遗美食、老字号、网红打卡、本地人推荐等） -->
+    <select id="selectByFeatureTags" resultType="com.example.noodletrail.food.entity.ShaanxiFood">
+        SELECT id,
+               food_name  AS foodName,
+               image_url  AS imageUrl,
+               history,
+               introduction,
+               features,
+               tag,
+               city,
+               feature_tags AS featureTags
+        FROM shaanxi_food
+        <where>
+            <if test="featureTags != null and featureTags.size() > 0">
+                <foreach collection="featureTags" item="ft" separator=" OR " open="(" close=")">
+                    feature_tags LIKE CONCAT('%', #{ft}, '%')
+                </foreach>
+            </if>
+        </where>
+        ORDER BY id ASC
+    </select>
+
+    <!-- 获取所有基础标签（tag） -->
+    <select id="findAllTags" resultType="java.lang.String">
+        SELECT DISTINCT tag
+        FROM shaanxi_food
+        WHERE tag IS NOT NULL AND tag &lt;> ''
+        ORDER BY tag ASC
+    </select>
+
+    <!-- 获取所有原始特色标签（feature_tags，后续在 Service 层切分） -->
+    <select id="findAllFeatureTagsRaw" resultType="java.lang.String">
+        SELECT feature_tags
+        FROM shaanxi_food
+        WHERE feature_tags IS NOT NULL AND feature_tags &lt;> ''
     </select>
 
 </mapper>

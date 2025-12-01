@@ -20,7 +20,7 @@ public class CheckinServiceImpl implements CheckinService {
     }
 
     @Override
-    public void addCheckin(CheckinDTO dto) {
+    public Integer addCheckin(CheckinDTO dto) {
         UserCheckin checkin = new UserCheckin();
         checkin.setUserId(dto.getUserId());
         checkin.setContent(dto.getContent());
@@ -29,6 +29,7 @@ public class CheckinServiceImpl implements CheckinService {
         checkin.setLatitude(dto.getLatitude());
         checkin.setImageUrls(dto.getImageUrls());
         checkinMapper.insert(checkin);
+        return checkin.getId();
     }
 
     @Override
@@ -37,18 +38,44 @@ public class CheckinServiceImpl implements CheckinService {
         List<UserCheckin> list = checkinMapper.selectByUserId(userId, offset, size);
         List<CheckinVO> result = new ArrayList<>();
         for (UserCheckin c : list) {
-            CheckinVO vo = new CheckinVO();
-            vo.setId(c.getId());
-            vo.setContent(c.getContent());
-            vo.setLocationName(c.getLocationName());
-            vo.setCreateTime(c.getCreateTime());
-            if (c.getImageUrls() != null && !c.getImageUrls().isEmpty()) {
-                vo.setImageUrls(c.getImageUrls().split(","));
-            } else {
-                vo.setImageUrls(new String[0]);
-            }
-            result.add(vo);
+            result.add(toVo(c));
         }
         return result;
+    }
+
+    @Override
+    public CheckinVO getCheckinByIdAndUser(Integer id, String userId) {
+        UserCheckin c = checkinMapper.selectByIdAndUser(id, userId);
+        if (c == null) {
+            return null;
+        }
+        return toVo(c);
+    }
+
+    @Override
+    public void deleteCheckin(Integer id, String userId) {
+        int rows = checkinMapper.deleteByIdAndUser(id, userId);
+        if (rows == 0) {
+            throw new RuntimeException("打卡记录不存在或无权限");
+        }
+    }
+
+    @Override
+    public int countUserCheckins(String userId) {
+        return checkinMapper.countByUserId(userId);
+    }
+
+    private CheckinVO toVo(UserCheckin c) {
+        CheckinVO vo = new CheckinVO();
+        vo.setId(c.getId());
+        vo.setContent(c.getContent());
+        vo.setLocationName(c.getLocationName());
+        vo.setCreateTime(c.getCreateTime());
+        if (c.getImageUrls() != null && !c.getImageUrls().isEmpty()) {
+            vo.setImageUrls(c.getImageUrls().split(","));
+        } else {
+            vo.setImageUrls(new String[0]);
+        }
+        return vo;
     }
 }

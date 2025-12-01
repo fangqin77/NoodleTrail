@@ -17,4 +17,7 @@ public interface ShaanxiIntangibleHeritageMapper {
 
     // 模糊搜索（名称 / 历史渊源 / 内容介绍）
     List<ShaanxiIntangibleHeritage> searchByKeyword(@Param("keyword") String keyword);
+
+    // 根据主键查询单条非遗信息
+    ShaanxiIntangibleHeritage findById(@Param("id") Integer id);
 }

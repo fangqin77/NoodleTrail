@@ -19,6 +19,23 @@
         WHERE openid = #{openid}
     </select>
 
+    <select id="selectById" resultType="com.example.noodletrail.user.entity.WxUser">
+        SELECT id,
+               openid,
+               unionid,
+               nickname,
+               avatar_url      AS avatarUrl,
+               gender,
+               city,
+               country,
+               province,
+               create_time     AS createTime,
+               update_time     AS updateTime,
+               last_login_time AS lastLoginTime
+        FROM wx_user
+        WHERE id = #{id}
+    </select>
+
     <insert id="insert" parameterType="com.example.noodletrail.user.entity.WxUser" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO wx_user (openid, unionid, nickname, avatar_url, gender, city, country, province)
         VALUES (#{openid}, #{unionid}, #{nickname}, #{avatarUrl}, #{gender}, #{city}, #{country}, #{province})

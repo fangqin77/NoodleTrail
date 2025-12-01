@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.noodletrail.heritage.experience.mapper.HeritageExperienceMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.noodletrail.heritage.experience.entity.HeritageExperience">
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="heritage_id" property="heritageId" />
+        <result column="title" property="title" />
+        <result column="content" property="content" />
+        <result column="rating" property="rating" />
+        <result column="location_name" property="locationName" />
+        <result column="longitude" property="longitude" />
+        <result column="latitude" property="latitude" />
+        <result column="image_urls" property="imageUrls" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <insert id="insert" parameterType="com.example.noodletrail.heritage.experience.entity.HeritageExperience" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO heritage_experience (user_id, heritage_id, title, content, rating, location_name, longitude, latitude, image_urls, create_time, update_time)
+        VALUES (#{userId}, #{heritageId}, #{title}, #{content}, #{rating}, #{locationName}, #{longitude}, #{latitude}, #{imageUrls}, #{createTime}, #{updateTime})
+    </insert>
+
+    <select id="selectByUser" resultMap="BaseResultMap">
+        SELECT id,
+               user_id       AS user_id,
+               heritage_id   AS heritage_id,
+               title,
+               content,
+               rating,
+               location_name AS location_name,
+               longitude,
+               latitude,
+               image_urls    AS image_urls,
+               create_time   AS create_time,
+               update_time   AS update_time
+        FROM heritage_experience
+        WHERE user_id = #{userId}
+        ORDER BY create_time DESC
+        LIMIT #{offset}, #{size}
+    </select>
+
+    <select id="selectByIdAndUser" resultMap="BaseResultMap">
+        SELECT id,
+               user_id       AS user_id,
+               heritage_id   AS heritage_id,
+               title,
+               content,
+               rating,
+               location_name AS location_name,
+               longitude,
+               latitude,
+               image_urls    AS image_urls,
+               create_time   AS create_time,
+               update_time   AS update_time
+        FROM heritage_experience
+        WHERE id = #{id}
+          AND user_id = #{userId}
+    </select>
+
+    <delete id="deleteByIdAndUser">
+        DELETE FROM heritage_experience
+        WHERE id = #{id}
+          AND user_id = #{userId}
+    </delete>
+
+</mapper>

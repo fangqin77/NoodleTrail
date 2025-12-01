@@ -9,6 +9,8 @@ public interface WxUserMapper {
 
     WxUser selectByOpenid(@Param("openid") String openid);
 
+    WxUser selectById(@Param("id") Integer id);
+
     int insert(WxUser user);
 
     int updateById(WxUser user);

@@ -9,6 +9,7 @@ public class ShaanxiFood {
     private String features;
     private String tag;
     private String city; // 新增城市字段
+    private String featureTags; // 新增：特色标签（非遗美食、老字号、网红打卡、本地人推荐）
 
     public ShaanxiFood() {
     }
@@ -75,5 +76,13 @@ public class ShaanxiFood {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public String getFeatureTags() {
+        return featureTags;
+    }
+
+    public void setFeatureTags(String featureTags) {
+        this.featureTags = featureTags;
     }
 }

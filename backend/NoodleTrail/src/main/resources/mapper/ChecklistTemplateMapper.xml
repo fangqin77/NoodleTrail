@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.noodletrail.checklist.mapper.ChecklistTemplateMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.noodletrail.checklist.entity.ChecklistTemplate">
+        <id column="id" property="id" />
+        <result column="title" property="title" />
+        <result column="scene" property="scene" />
+        <result column="items" property="itemsJson" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT id,
+               title,
+               scene,
+               items,
+               create_time AS create_time,
+               update_time AS update_time
+        FROM checklist_template
+        ORDER BY id ASC
+    </select>
+
+    <select id="selectById" resultMap="BaseResultMap">
+        SELECT id,
+               title,
+               scene,
+               items,
+               create_time AS create_time,
+               update_time AS update_time
+        FROM checklist_template
+        WHERE id = #{id}
+    </select>
+
+</mapper>

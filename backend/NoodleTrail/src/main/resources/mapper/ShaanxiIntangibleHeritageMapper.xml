@@ -5,8 +5,8 @@
     <!-- 查询所有非遗信息 -->
     <select id="findAll" resultType="com.example.noodletrail.heritage.entity.ShaanxiIntangibleHeritage">
         SELECT id,
-               heritage_name         AS heritageName,
-               heritage_type         AS heritageType,
+               name                  AS heritageName,
+               category              AS heritageType,
                image_url             AS imageUrl,
                video_url             AS videoUrl,
                historical_origin     AS historicalOrigin,
@@ -15,11 +15,11 @@
         ORDER BY id ASC
     </select>
 
-    <!-- 按非遗分类查询 -->
+    <!-- 按非遗分类查询（heritageType 对应表中的 category 字段） -->
     <select id="findByType" resultType="com.example.noodletrail.heritage.entity.ShaanxiIntangibleHeritage">
         SELECT id,
-               heritage_name         AS heritageName,
-               heritage_type         AS heritageType,
+               name                  AS heritageName,
+               category              AS heritageType,
                image_url             AS imageUrl,
                video_url             AS videoUrl,
                historical_origin     AS historicalOrigin,
@@ -27,7 +27,7 @@
         FROM shaanxi_intangible_heritage
         <where>
             <if test="heritageType != null and heritageType != ''">
-                heritage_type = #{heritageType}
+                category = #{heritageType}
             </if>
         </where>
         ORDER BY id ASC
@@ -36,8 +36,8 @@
     <!-- 模糊搜索（名称 / 历史渊源 / 内容介绍） -->
     <select id="searchByKeyword" resultType="com.example.noodletrail.heritage.entity.ShaanxiIntangibleHeritage">
         SELECT id,
-               heritage_name         AS heritageName,
-               heritage_type         AS heritageType,
+               name                  AS heritageName,
+               category              AS heritageType,
                image_url             AS imageUrl,
                video_url             AS videoUrl,
                historical_origin     AS historicalOrigin,
@@ -46,13 +46,27 @@
         <where>
             <if test="keyword != null and keyword != ''">
                 (
-                    heritage_name LIKE CONCAT('%', #{keyword}, '%')
+                    name LIKE CONCAT('%', #{keyword}, '%')
                     OR historical_origin LIKE CONCAT('%', #{keyword}, '%')
                     OR content_introduction LIKE CONCAT('%', #{keyword}, '%')
                 )
             </if>
         </where>
         ORDER BY id ASC
+    </select>
+
+    <!-- 根据主键查询单条非遗信息 -->
+    <select id="findById" parameterType="int"
+            resultType="com.example.noodletrail.heritage.entity.ShaanxiIntangibleHeritage">
+        SELECT id,
+               name                  AS heritageName,
+               category              AS heritageType,
+               image_url             AS imageUrl,
+               video_url             AS videoUrl,
+               historical_origin     AS historicalOrigin,
+               content_introduction  AS contentIntroduction
+        FROM shaanxi_intangible_heritage
+        WHERE id = #{id}
     </select>
 
 </mapper>

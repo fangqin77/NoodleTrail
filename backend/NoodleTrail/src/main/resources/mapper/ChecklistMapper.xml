@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.noodletrail.checklist.mapper.ChecklistMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.noodletrail.checklist.entity.Checklist">
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="title" property="title" />
+        <result column="template_id" property="templateId" />
+        <result column="items" property="itemsJson" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <insert id="insert" parameterType="com.example.noodletrail.checklist.entity.Checklist" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO checklist (user_id, title, template_id, items, create_time, update_time)
+        VALUES (#{userId}, #{title}, #{templateId}, #{itemsJson}, #{createTime}, #{updateTime})
+    </insert>
+
+    <select id="selectByUser" resultMap="BaseResultMap">
+        SELECT id,
+               user_id     AS user_id,
+               title,
+               template_id AS template_id,
+               items,
+               create_time AS create_time,
+               update_time AS update_time
+        FROM checklist
+        WHERE user_id = #{userId}
+        ORDER BY create_time DESC
+    </select>
+
+    <select id="selectByIdAndUser" resultMap="BaseResultMap">
+        SELECT id,
+               user_id     AS user_id,
+               title,
+               template_id AS template_id,
+               items,
+               create_time AS create_time,
+               update_time AS update_time
+        FROM checklist
+        WHERE id = #{id}
+          AND user_id = #{userId}
+    </select>
+
+    <update id="updateByIdAndUser" parameterType="com.example.noodletrail.checklist.entity.Checklist">
+        UPDATE checklist
+        SET title = #{title},
+            template_id = #{templateId},
+            items = #{itemsJson},
+            update_time = #{updateTime}
+        WHERE id = #{id}
+          AND user_id = #{userId}
+    </update>
+
+    <delete id="deleteByIdAndUser">
+        DELETE FROM checklist
+        WHERE id = #{id}
+          AND user_id = #{userId}
+    </delete>
+
+</mapper>

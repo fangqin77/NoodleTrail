@@ -30,4 +30,9 @@ public class ShaanxiIntangibleHeritageServiceImpl implements ShaanxiIntangibleHe
     public List<ShaanxiIntangibleHeritage> searchByKeyword(String keyword) {
         return heritageMapper.searchByKeyword(keyword);
     }
+
+    @Override
+    public ShaanxiIntangibleHeritage getById(Integer id) {
+        return heritageMapper.findById(id);
+    }
 }

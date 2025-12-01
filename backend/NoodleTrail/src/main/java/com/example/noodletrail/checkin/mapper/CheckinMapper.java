@@ -14,4 +14,12 @@ public interface CheckinMapper {
     List<UserCheckin> selectByUserId(@Param("userId") String userId,
                                      @Param("offset") int offset,
                                      @Param("size") int size);
+
+    UserCheckin selectByIdAndUser(@Param("id") Integer id,
+                                  @Param("userId") String userId);
+
+    int deleteByIdAndUser(@Param("id") Integer id,
+                          @Param("userId") String userId);
+
+    int countByUserId(@Param("userId") String userId);
 }

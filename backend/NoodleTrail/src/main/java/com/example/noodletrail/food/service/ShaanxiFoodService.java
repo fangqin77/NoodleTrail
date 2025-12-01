@@ -34,4 +34,19 @@ public interface ShaanxiFoodService {
      * 按城市 + 标签查询
      */
     List<ShaanxiFood> getByCityAndTag(String city, String tag);
+
+    /**
+     * 按特色标签筛选（非遗美食、老字号、网红打卡、本地人推荐等）
+     */
+    List<ShaanxiFood> getByFeatureTags(List<String> featureTags);
+
+    /**
+     * 获取所有基础标签（tag 列）
+     */
+    List<String> getAllTags();
+
+    /**
+     * 获取展开后的所有特色标签（feature_tags 列切分去重）
+     */
+    List<String> getAllFeatureTags();
 }
