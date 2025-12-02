@@ -14,4 +14,6 @@ public interface HeritageExperienceService {
     HeritageExperienceDTO findByIdAndUser(Long id, String userId);
 
     void delete(Long id, String userId);
+
+    boolean hasExperience(String userId, Integer heritageId);
 }

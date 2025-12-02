@@ -154,6 +154,36 @@ public class HeritageExperienceController {
         return ApiResponse.ok(data);
     }
 
+    // 标记体验（简化接口）：POST /api/heritage/experience/{id}/experience
+    @PostMapping("/{id}/experience")
+    public ApiResponse<Map<String, Object>> markExperience(@PathVariable("id") Integer heritageId) {
+        String userOpenid = getCurrentUserOpenid();
+        boolean experienced = heritageExperienceService.hasExperience(userOpenid, heritageId);
+        if (!experienced) {
+            HeritageExperience experience = new HeritageExperience();
+            experience.setUserId(userOpenid);
+            experience.setHeritageId(heritageId);
+            // 具体标题如果未传，由 Service 统一补默认值，避免数据库 NOT NULL 冲突
+            heritageExperienceService.create(experience);
+            experienced = true;
+        }
+        Map<String, Object> data = new HashMap<>();
+        data.put("experienced", experienced);
+        data.put("isExperienced", experienced);
+        return ApiResponse.ok(data);
+    }
+
+    // 获取体验状态：GET /api/heritage/experience/{id}/experience
+    @GetMapping("/{id}/experience")
+    public ApiResponse<Map<String, Object>> getExperienceStatus(@PathVariable("id") Integer heritageId) {
+        String userOpenid = getCurrentUserOpenid();
+        boolean experienced = heritageExperienceService.hasExperience(userOpenid, heritageId);
+        Map<String, Object> data = new HashMap<>();
+        data.put("experienced", experienced);
+        data.put("isExperienced", experienced);
+        return ApiResponse.ok(data);
+    }
+
     private String getCurrentUserOpenid() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication.getPrincipal() == null) {

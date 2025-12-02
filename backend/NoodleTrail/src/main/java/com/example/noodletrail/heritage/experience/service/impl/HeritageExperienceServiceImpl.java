@@ -23,6 +23,12 @@ public class HeritageExperienceServiceImpl implements HeritageExperienceService 
 
     @Override
     public Long create(HeritageExperience experience) {
+        if (experience == null) {
+            throw new IllegalArgumentException("体验记录不能为空");
+        }
+        if (experience.getTitle() == null || experience.getTitle().trim().isEmpty()) {
+            experience.setTitle("体验记录");
+        }
         LocalDateTime now = LocalDateTime.now();
         experience.setCreateTime(now);
         experience.setUpdateTime(now);
@@ -56,6 +62,15 @@ public class HeritageExperienceServiceImpl implements HeritageExperienceService 
         if (rows == 0) {
             throw new RuntimeException("体验记录不存在或无权限");
         }
+    }
+
+    @Override
+    public boolean hasExperience(String userId, Integer heritageId) {
+        if (heritageId == null) {
+            return false;
+        }
+        int count = mapper.countByUserAndHeritage(userId, heritageId);
+        return count > 0;
     }
 
     private HeritageExperienceDTO toDto(HeritageExperience e) {

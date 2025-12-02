@@ -9,6 +9,14 @@ public class Checklist {
     private String title;
     private Long templateId;
     private String itemsJson;
+    /**
+     * 业务上的清单日期（格式：YYYY-MM-DD），与创建时间区分
+     */
+    private String date;
+    /**
+     * 同一天内的顺序（1-3）
+     */
+    private Integer orderIndex;
     private LocalDateTime createTime;
     private LocalDateTime updateTime;
 
@@ -53,6 +61,22 @@ public class Checklist {
 
     public void setItemsJson(String itemsJson) {
         this.itemsJson = itemsJson;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public Integer getOrderIndex() {
+        return orderIndex;
+    }
+
+    public void setOrderIndex(Integer orderIndex) {
+        this.orderIndex = orderIndex;
     }
 
     public LocalDateTime getCreateTime() {

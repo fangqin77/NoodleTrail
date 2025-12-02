@@ -20,4 +20,7 @@ public interface HeritageExperienceMapper {
 
     int deleteByIdAndUser(@Param("id") Long id,
                           @Param("userId") String userId);
+
+    int countByUserAndHeritage(@Param("userId") String userId,
+                               @Param("heritageId") Integer heritageId);
 }

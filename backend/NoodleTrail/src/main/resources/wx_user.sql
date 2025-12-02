@@ -11,7 +11,7 @@
  Target Server Version : 80028 (8.0.28)
  File Encoding         : 65001
 
- Date: 25/11/2025 11:00:38
+ Date: 01/12/2025 21:04:34
 */
 
 SET NAMES utf8mb4;
@@ -37,10 +37,14 @@ CREATE TABLE `wx_user`  (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uk_openid`(`openid` ASC) USING BTREE COMMENT 'openid唯一索引',
   INDEX `idx_unionid`(`unionid` ASC) USING BTREE COMMENT 'unionid索引（多端互通）'
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '微信小程序用户表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '微信小程序用户表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of wx_user
 -- ----------------------------
+INSERT INTO `wx_user` VALUES (1, 'oJ16z7ccJ0iXAVs3t9z_8RA2MYGs', NULL, '晚夏初九', 'http://tmp/YOPw6j6nChCH9822a7948c1fd300de9fea3c67a5d3ff.jpeg', NULL, NULL, NULL, NULL, '2025-11-25 16:18:34', '2025-12-01 19:13:22', '2025-12-01 19:13:22');
+INSERT INTO `wx_user` VALUES (2, 'mock_0b31UIGa1r6fJK02JNIa1i5JuW11UIGd', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-12-01 14:39:52', '2025-12-01 14:39:52', '2025-12-01 14:39:52');
+INSERT INTO `wx_user` VALUES (3, 'mock_011g3E000aBcDe123456', NULL, '测试用户', 'https://example.com/avatar.jpg', 1, '西安', '中国', '陕西', '2025-12-01 14:58:18', '2025-12-01 15:40:43', '2025-12-01 15:40:43');
+INSERT INTO `wx_user` VALUES (4, 'mock_', NULL, '测试用户', 'https://example.com/avatar.jpg', 1, '北京', '中国', '北京', '2025-12-01 15:00:43', '2025-12-01 15:40:21', '2025-12-01 15:40:21');
 
 SET FOREIGN_KEY_CHECKS = 1;

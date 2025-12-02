@@ -13,6 +13,12 @@ public interface ChecklistMapper {
 
     List<Checklist> selectByUser(@Param("userId") String userId);
 
+    List<Checklist> selectByUserAndDate(@Param("userId") String userId,
+                                        @Param("date") String date);
+
+    int countByUserAndDate(@Param("userId") String userId,
+                           @Param("date") String date);
+
     Checklist selectByIdAndUser(@Param("id") Long id,
                                 @Param("userId") String userId);
 

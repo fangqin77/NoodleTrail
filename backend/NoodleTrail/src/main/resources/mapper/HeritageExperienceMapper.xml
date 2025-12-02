@@ -65,4 +65,11 @@
           AND user_id = #{userId}
     </delete>
 
+    <select id="countByUserAndHeritage" resultType="int">
+        SELECT COUNT(1)
+        FROM heritage_experience
+        WHERE user_id = #{userId}
+          AND heritage_id = #{heritageId}
+    </select>
+
 </mapper>

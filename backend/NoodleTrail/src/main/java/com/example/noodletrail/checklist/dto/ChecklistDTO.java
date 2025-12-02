@@ -5,7 +5,18 @@ import java.util.List;
 public class ChecklistDTO {
 
     private Long id;
-    private String title;
+    /**
+     * 清单名称（标题）
+     */
+    private String name;
+    /**
+     * 清单日期（YYYY-MM-DD）
+     */
+    private String date;
+    /**
+     * 当天顺序（1-3）
+     */
+    private Integer order;
     private Long templateId;
     private List<ChecklistItemDTO> items;
 
@@ -20,12 +31,28 @@ public class ChecklistDTO {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public Integer getOrder() {
+        return order;
+    }
+
+    public void setOrder(Integer order) {
+        this.order = order;
     }
 
     public Long getTemplateId() {

@@ -8,13 +8,15 @@
         <result column="title" property="title" />
         <result column="template_id" property="templateId" />
         <result column="items" property="itemsJson" />
+        <result column="list_date" property="date" />
+        <result column="order_index" property="orderIndex" />
         <result column="create_time" property="createTime" />
         <result column="update_time" property="updateTime" />
     </resultMap>
 
     <insert id="insert" parameterType="com.example.noodletrail.checklist.entity.Checklist" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO checklist (user_id, title, template_id, items, create_time, update_time)
-        VALUES (#{userId}, #{title}, #{templateId}, #{itemsJson}, #{createTime}, #{updateTime})
+        INSERT INTO checklist (user_id, title, template_id, items, list_date, order_index, create_time, update_time)
+        VALUES (#{userId}, #{title}, #{templateId}, #{itemsJson}, #{date}, #{orderIndex}, #{createTime}, #{updateTime})
     </insert>
 
     <select id="selectByUser" resultMap="BaseResultMap">
@@ -23,11 +25,36 @@
                title,
                template_id AS template_id,
                items,
+               list_date   AS list_date,
+               order_index AS order_index,
                create_time AS create_time,
                update_time AS update_time
         FROM checklist
         WHERE user_id = #{userId}
-        ORDER BY create_time DESC
+        ORDER BY list_date DESC, order_index ASC, create_time DESC
+    </select>
+
+    <select id="selectByUserAndDate" resultMap="BaseResultMap">
+        SELECT id,
+               user_id     AS user_id,
+               title,
+               template_id AS template_id,
+               items,
+               list_date   AS list_date,
+               order_index AS order_index,
+               create_time AS create_time,
+               update_time AS update_time
+        FROM checklist
+        WHERE user_id = #{userId}
+          AND list_date = #{date}
+        ORDER BY order_index ASC, create_time DESC
+    </select>
+
+    <select id="countByUserAndDate" resultType="int">
+        SELECT COUNT(1)
+        FROM checklist
+        WHERE user_id = #{userId}
+          AND list_date = #{date}
     </select>
 
     <select id="selectByIdAndUser" resultMap="BaseResultMap">
@@ -36,6 +63,8 @@
                title,
                template_id AS template_id,
                items,
+               list_date   AS list_date,
+               order_index AS order_index,
                create_time AS create_time,
                update_time AS update_time
         FROM checklist
@@ -48,6 +77,8 @@
         SET title = #{title},
             template_id = #{templateId},
             items = #{itemsJson},
+            list_date = #{date},
+            order_index = #{orderIndex},
             update_time = #{updateTime}
         WHERE id = #{id}
           AND user_id = #{userId}

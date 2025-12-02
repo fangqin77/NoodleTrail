@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -47,10 +48,34 @@ public class ChecklistController {
     }
 
     @GetMapping
-    public ApiResponse<List<ChecklistDTO>> myChecklists() {
+    public ApiResponse<List<ChecklistDTO>> myChecklists(@RequestParam(value = "date", required = false) String date) {
         String userOpenid = getCurrentUserOpenid();
-        List<ChecklistDTO> list = checklistService.listChecklists(userOpenid);
+        List<ChecklistDTO> list = checklistService.listChecklists(userOpenid, date);
         return ApiResponse.ok(list);
+    }
+
+    /**
+     * 获取用户的所有清单（不按日期筛选，支持简单分页）
+     */
+    @GetMapping("/all")
+    public ApiResponse<List<ChecklistDTO>> getAllMyChecklists(@RequestParam(defaultValue = "1") int page,
+                                                             @RequestParam(defaultValue = "100") int size) {
+        String userOpenid = getCurrentUserOpenid();
+        List<ChecklistDTO> all = checklistService.listChecklists(userOpenid, null);
+        if (page < 1) {
+            page = 1;
+        }
+        if (size < 1) {
+            size = 100;
+        }
+        int fromIndex = (page - 1) * size;
+        if (fromIndex >= all.size()) {
+            // 返回空列表
+            return ApiResponse.ok(all.subList(all.size(), all.size()));
+        }
+        int toIndex = Math.min(fromIndex + size, all.size());
+        List<ChecklistDTO> pageList = all.subList(fromIndex, toIndex);
+        return ApiResponse.ok(pageList);
     }
 
     @PostMapping
@@ -70,7 +95,12 @@ public class ChecklistController {
             throw new RuntimeException("templateId 不能为空");
         }
         Long templateId = Long.parseLong(tid.toString());
-        Long id = checklistService.importFromTemplate(userOpenid, templateId);
+        String date = null;
+        Object d = body.get("date");
+        if (d != null) {
+            date = d.toString();
+        }
+        Long id = checklistService.importFromTemplate(userOpenid, templateId, date);
         Map<String, Object> data = new HashMap<>();
         data.put("id", id);
         return ApiResponse.ok(data);
@@ -121,6 +151,45 @@ public class ChecklistController {
         String userOpenid = getCurrentUserOpenid();
         ChecklistDTO dto = checklistService.deleteItem(id, userOpenid, itemId);
         return ApiResponse.ok(dto);
+    }
+
+    @PostMapping("/{id}/export")
+    public ApiResponse<Map<String, Object>> exportChecklist(@PathVariable Long id,
+                                                            @RequestBody(required = false) Map<String, Object> body) {
+        String userOpenid = getCurrentUserOpenid();
+        String format = null;
+        if (body != null && body.get("format") != null) {
+            format = body.get("format").toString();
+        }
+        Map<String, Object> data = checklistService.exportChecklist(id, userOpenid, format);
+        return ApiResponse.ok(data);
+    }
+
+    @PostMapping("/import-from-text")
+    public ApiResponse<Map<String, Object>> importFromText(@RequestBody Map<String, Object> body) {
+        String userOpenid = getCurrentUserOpenid();
+        Object textObj = body.get("text");
+        if (textObj == null) {
+            throw new RuntimeException("text 不能为空");
+        }
+        String text = textObj.toString();
+        String date = body.get("date") != null ? body.get("date").toString() : null;
+        String name = body.get("name") != null ? body.get("name").toString() : null;
+        Map<String, Object> data = checklistService.importChecklistFromText(userOpenid, text, date, name);
+        return ApiResponse.ok(data);
+    }
+
+    @PostMapping("/{id}/import-items")
+    public ApiResponse<Map<String, Object>> importItems(@PathVariable Long id,
+                                                        @RequestBody Map<String, Object> body) {
+        String userOpenid = getCurrentUserOpenid();
+        Object textObj = body.get("text");
+        if (textObj == null) {
+            throw new RuntimeException("text 不能为空");
+        }
+        String text = textObj.toString();
+        Map<String, Object> data = checklistService.importItemsToChecklist(id, userOpenid, text);
+        return ApiResponse.ok(data);
     }
 
     private String getCurrentUserOpenid() {

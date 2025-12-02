@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.noodletrail.heritage.mapper.HeritageFavoriteMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.noodletrail.heritage.entity.HeritageFavorite">
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="heritage_id" property="heritageId" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+    <insert id="insert" parameterType="com.example.noodletrail.heritage.entity.HeritageFavorite" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO heritage_favorite (user_id, heritage_id, create_time)
+        VALUES (#{userId}, #{heritageId}, #{createTime})
+    </insert>
+
+    <delete id="deleteByUserAndHeritage">
+        DELETE FROM heritage_favorite
+        WHERE user_id = #{userId}
+          AND heritage_id = #{heritageId}
+    </delete>
+
+    <select id="countByUserAndHeritage" resultType="int">
+        SELECT COUNT(1)
+        FROM heritage_favorite
+        WHERE user_id = #{userId}
+          AND heritage_id = #{heritageId}
+    </select>
+
+    <select id="selectHeritageIdsByUser" resultType="int">
+        SELECT heritage_id
+        FROM heritage_favorite
+        WHERE user_id = #{userId}
+        ORDER BY create_time DESC
+    </select>
+
+</mapper>

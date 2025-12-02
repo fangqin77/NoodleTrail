@@ -37,19 +37,20 @@ public class WxUserService {
      * - 其他调用异常在 dev/test 环境降级为本地模拟登录（使用 code 作为 mock openid），生产环境则返回统一错误。
      */
     public WxUser login(String code, WxUser userInfo) {
+        String trimmedCode = code != null ? code.trim() : null;
         try {
             // 前置校验：code 不能为空
-            if (code == null || code.trim().isEmpty()) {
+            if (trimmedCode == null || trimmedCode.isEmpty()) {
                 log.error("调用微信授权接口失败：code 为空");
                 throw new IllegalArgumentException("登录凭证不能为空，请重新获取 code");
             }
 
-            log.info("调用微信 jscode2session 接口，code: {}", code);
+            log.info("调用微信 jscode2session 接口，code: {}", trimmedCode);
             String url = String.format(
                     "https://api.weixin.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code",
                     wxConfig.getAppid(),
                     wxConfig.getSecret(),
-                    code
+                    trimmedCode
             );
             log.info("微信 jscode2session 请求地址: {}", url);
 
@@ -119,11 +120,11 @@ public class WxUserService {
             throw biz;
         } catch (Exception e) {
             // 调用微信接口异常（网络 / 配置问题等）
-            log.error("调用微信接口异常，code: {}", code, e);
+            log.error("调用微信接口异常，code: {}", trimmedCode, e);
             if (isDevOrTest()) {
                 // 仅在开发 / 测试环境降级为本地模拟登录，避免生产环境滥用模拟登录
-                log.warn("当前为开发/测试环境，降级为本地模拟登录，code: {}", code);
-                String mockOpenid = "mock_" + (code == null ? "" : code);
+                log.warn("当前为开发/测试环境，降级为本地模拟登录，code: {}", trimmedCode);
+                String mockOpenid = "mock_" + (trimmedCode == null ? "" : trimmedCode);
                 WxUser existUser = wxUserMapper.selectByOpenid(mockOpenid);
                 if (existUser != null) {
                     existUser.setLastLoginTime(LocalDateTime.now());

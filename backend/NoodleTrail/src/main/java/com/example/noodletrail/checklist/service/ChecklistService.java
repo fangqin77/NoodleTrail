@@ -5,6 +5,7 @@ import com.example.noodletrail.checklist.dto.ChecklistItemDTO;
 import com.example.noodletrail.checklist.dto.ChecklistTemplateDTO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ChecklistService {
 
@@ -14,9 +15,9 @@ public interface ChecklistService {
 
     Long createChecklist(String userId, ChecklistDTO dto);
 
-    Long importFromTemplate(String userId, Long templateId);
+    Long importFromTemplate(String userId, Long templateId, String date);
 
-    List<ChecklistDTO> listChecklists(String userId);
+    List<ChecklistDTO> listChecklists(String userId, String date);
 
     ChecklistDTO getChecklist(Long id, String userId);
 
@@ -29,4 +30,10 @@ public interface ChecklistService {
     ChecklistDTO updateItem(Long checklistId, String userId, String itemId, ChecklistItemDTO item);
 
     ChecklistDTO deleteItem(Long checklistId, String userId, String itemId);
+
+    Map<String, Object> exportChecklist(Long id, String userId, String format);
+
+    Map<String, Object> importChecklistFromText(String userId, String text, String date, String name);
+
+    Map<String, Object> importItemsToChecklist(Long checklistId, String userId, String text);
 }
