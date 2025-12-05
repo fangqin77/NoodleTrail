@@ -26,6 +26,7 @@ CREATE TABLE `user_checkin`  (
   `user_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '用户唯一标识（小程序openid）',
   `content` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '打卡文案（用户自定义）',
   `location_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '定位名称（如：华阴老腔表演馆、兵马俑景区三号坑门店）',
+  `city` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '打卡所在城市（如：西安、商洛）',
   `longitude` decimal(10, 6) NOT NULL COMMENT '经度（支持门店级精度）',
   `latitude` decimal(10, 6) NOT NULL COMMENT '纬度（支持门店级精度）',
   `image_urls` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '打卡图片URL（多张用逗号分隔，如：url1,url2,url3）',

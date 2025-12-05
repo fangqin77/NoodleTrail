@@ -9,6 +9,7 @@ import com.example.noodletrail.user.entity.WxUser;
 import com.example.noodletrail.user.service.WxUserService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -90,7 +91,8 @@ public class HeritageExperienceController {
 
     @PostMapping(value = "/add", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ApiResponse<Map<String, Object>> addMultipart(@RequestPart("data") String jsonData,
-                                                         @RequestPart(value = "images", required = false) List<MultipartFile> images)
+                                                         @RequestPart(value = "images", required = false) List<MultipartFile> images,
+                                                         HttpServletRequest request)
             throws Exception {
         String userOpenid = getCurrentUserOpenid();
 
@@ -107,7 +109,7 @@ public class HeritageExperienceController {
         List<String> urlList = new ArrayList<>();
         if (images != null && !images.isEmpty()) {
             for (MultipartFile file : images) {
-                String url = ossService.upload(file);
+                String url = ossService.upload(file, request);
                 urlList.add(url);
             }
         }

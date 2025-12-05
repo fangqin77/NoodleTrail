@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -190,6 +192,58 @@ public class ChecklistController {
         String text = textObj.toString();
         Map<String, Object> data = checklistService.importItemsToChecklist(id, userOpenid, text);
         return ApiResponse.ok(data);
+    }
+
+    /**
+     * 生成清单分享码
+     * POST /api/checklists/{id}/share
+     */
+    @PostMapping("/{id}/share")
+    public ApiResponse<Map<String, Object>> createShareCode(@PathVariable Long id) {
+        String userOpenid = getCurrentUserOpenid();
+        // 导出为文本格式
+        Map<String, Object> exported = checklistService.exportChecklist(id, userOpenid, "text");
+        Object textObj = exported.get("text");
+        if (textObj == null) {
+            throw new RuntimeException("清单导出失败");
+        }
+        String text = textObj.toString();
+        // 使用 URL-safe Base64 作为分享码，不带 padding
+        String code = Base64.getUrlEncoder()
+                .withoutPadding()
+                .encodeToString(text.getBytes(StandardCharsets.UTF_8));
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("code", code);
+        // 当前方案不做过期时间控制，前端文档中的 expireAt 保留为 null
+        data.put("expireAt", null);
+        return ApiResponse.ok(data);
+    }
+
+    /**
+     * 通过分享码导入清单
+     * POST /api/checklists/import-from-share
+     */
+    @PostMapping("/import-from-share")
+    public ApiResponse<Map<String, Object>> importFromShare(@RequestBody Map<String, Object> body) {
+        String userOpenid = getCurrentUserOpenid();
+        Object codeObj = body.get("code");
+        if (codeObj == null) {
+            throw new RuntimeException("code 不能为空");
+        }
+        String code = codeObj.toString();
+        String date = body.get("date") != null ? body.get("date").toString() : null;
+
+        String text;
+        try {
+            byte[] bytes = Base64.getUrlDecoder().decode(code);
+            text = new String(bytes, StandardCharsets.UTF_8);
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException("分享码无效");
+        }
+
+        Map<String, Object> result = checklistService.importChecklistFromText(userOpenid, text, date, null);
+        return ApiResponse.ok(result);
     }
 
     private String getCurrentUserOpenid() {

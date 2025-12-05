@@ -7,6 +7,7 @@ public class UserCheckin {
     private String userId;
     private String content;
     private String locationName;
+    private String city;
     private Double longitude;
     private Double latitude;
     private String imageUrls;
@@ -45,6 +46,14 @@ public class UserCheckin {
 
     public void setLocationName(String locationName) {
         this.locationName = locationName;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public Double getLongitude() {

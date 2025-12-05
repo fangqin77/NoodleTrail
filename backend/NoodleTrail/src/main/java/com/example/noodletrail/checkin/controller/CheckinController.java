@@ -10,6 +10,7 @@ import com.example.noodletrail.user.entity.WxUser;
 import com.example.noodletrail.user.service.WxUserService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -70,9 +71,10 @@ public class CheckinController {
      * }
      */
     @PostMapping("/add")
-    public ApiResponse<Map<String, Object>> addJson(@RequestBody Map<String, Object> body) {
+    public ApiResponse<CheckinVO> addJson(@RequestBody Map<String, Object> body) {
         String userOpenid = getCurrentUserOpenid();
         String locationName = (String) body.get("locationName");
+        String city = body.get("city") != null ? body.get("city").toString() : null;
         Double longitude = toDouble(body.get("longitude"));
         Double latitude = toDouble(body.get("latitude"));
         String content = body.get("content") != null ? body.get("content").toString() : null;
@@ -95,14 +97,13 @@ public class CheckinController {
         dto.setUserId(userOpenid);
         dto.setContent(content);
         dto.setLocationName(locationName);
+        dto.setCity(city);
         dto.setLongitude(longitude);
         dto.setLatitude(latitude);
         dto.setImageUrls(imageUrls);
 
-        Integer id = checkinService.addCheckin(dto);
-        Map<String, Object> data = new HashMap<>();
-        data.put("id", id);
-        return ApiResponse.ok(data);
+        CheckinVO vo = checkinService.addCheckin(dto);
+        return ApiResponse.ok(vo);
     }
 
     /**
@@ -110,39 +111,62 @@ public class CheckinController {
      * data 字段为 JSON 字符串，结构同 addJson
      */
     @PostMapping(value = "/add", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ApiResponse<Map<String, Object>> addMultipart(@RequestPart("data") String jsonData,
-                                                         @RequestPart(value = "images", required = false) List<MultipartFile> images)
+    public ApiResponse<CheckinVO> addMultipart(@RequestPart("data") String jsonData,
+                                               @RequestPart(value = "images", required = false) List<MultipartFile> images,
+                                               HttpServletRequest request)
             throws Exception {
         String userOpenid = getCurrentUserOpenid();
 
         Map<String, Object> body = objectMapper.readValue(jsonData, new TypeReference<Map<String, Object>>() {
         });
         String locationName = (String) body.get("locationName");
+        String city = body.get("city") != null ? body.get("city").toString() : null;
         Double longitude = toDouble(body.get("longitude"));
         Double latitude = toDouble(body.get("latitude"));
         String content = body.get("content") != null ? body.get("content").toString() : null;
 
+        Integer checkinId = null;
+        Object checkinIdObj = body.get("checkinId");
+        if (checkinIdObj != null) {
+            try {
+                checkinId = Integer.parseInt(checkinIdObj.toString());
+            } catch (NumberFormatException ignored) {
+            }
+        }
+
         List<String> urlList = new ArrayList<>();
         if (images != null && !images.isEmpty()) {
             for (MultipartFile file : images) {
-                String url = ossService.upload(file);
+                String url = ossService.upload(file, request);
                 urlList.add(url);
             }
         }
-        String imageUrls = urlList.isEmpty() ? null : String.join(",", urlList);
 
-        CheckinDTO dto = new CheckinDTO();
-        dto.setUserId(userOpenid);
-        dto.setContent(content);
-        dto.setLocationName(locationName);
-        dto.setLongitude(longitude);
-        dto.setLatitude(latitude);
-        dto.setImageUrls(imageUrls);
+        CheckinVO vo;
+        if (checkinId == null) {
+            // 创建新打卡（首张图片或纯文本）
+            CheckinDTO dto = new CheckinDTO();
+            dto.setUserId(userOpenid);
+            dto.setContent(content);
+            dto.setLocationName(locationName);
+            dto.setCity(city);
+            dto.setLongitude(longitude);
+            dto.setLatitude(latitude);
+            dto.setImageUrls(urlList.isEmpty() ? null : String.join(",", urlList));
+            vo = checkinService.addCheckin(dto);
+        } else {
+            // 在已有打卡记录上追加图片
+            if (urlList.isEmpty()) {
+                vo = checkinService.getCheckinByIdAndUser(checkinId, userOpenid);
+                if (vo == null) {
+                    throw new RuntimeException("打卡记录不存在或无权限");
+                }
+            } else {
+                vo = checkinService.updateCheckinImages(checkinId, userOpenid, urlList);
+            }
+        }
 
-        Integer id = checkinService.addCheckin(dto);
-        Map<String, Object> data = new HashMap<>();
-        data.put("id", id);
-        return ApiResponse.ok(data);
+        return ApiResponse.ok(vo);
     }
 
     /**
@@ -153,6 +177,17 @@ public class CheckinController {
                                                    @RequestParam(defaultValue = "10") int size) {
         String userOpenid = getCurrentUserOpenid();
         List<CheckinVO> list = checkinService.getUserCheckins(userOpenid, page, size);
+        return ApiResponse.ok(list);
+    }
+
+    /**
+     * 获取所有用户的美食打卡列表（全局时间线）
+     */
+    @GetMapping("/all")
+    public ApiResponse<List<CheckinVO>> allCheckins(@RequestParam(defaultValue = "1") int page,
+                                                    @RequestParam(defaultValue = "20") int size,
+                                                    @RequestParam(required = false) String city) {
+        List<CheckinVO> list = checkinService.getAllCheckins(page, size, city);
         return ApiResponse.ok(list);
     }
 

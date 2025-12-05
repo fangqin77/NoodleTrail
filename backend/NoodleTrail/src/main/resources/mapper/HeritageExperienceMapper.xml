@@ -72,4 +72,10 @@
           AND heritage_id = #{heritageId}
     </select>
 
+    <delete id="deleteByUserAndHeritage">
+        DELETE FROM heritage_experience
+        WHERE user_id = #{userId}
+          AND heritage_id = #{heritageId}
+    </delete>
+
 </mapper>

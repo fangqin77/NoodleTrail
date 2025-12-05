@@ -15,8 +15,19 @@ public interface CheckinMapper {
                                      @Param("offset") int offset,
                                      @Param("size") int size);
 
+    List<UserCheckin> selectAll(@Param("offset") int offset,
+                                @Param("size") int size);
+
+    List<UserCheckin> selectAllByCity(@Param("city") String city,
+                                      @Param("offset") int offset,
+                                      @Param("size") int size);
+
     UserCheckin selectByIdAndUser(@Param("id") Integer id,
                                   @Param("userId") String userId);
+
+    int updateImageUrls(@Param("id") Integer id,
+                        @Param("userId") String userId,
+                        @Param("imageUrls") String imageUrls);
 
     int deleteByIdAndUser(@Param("id") Integer id,
                           @Param("userId") String userId);

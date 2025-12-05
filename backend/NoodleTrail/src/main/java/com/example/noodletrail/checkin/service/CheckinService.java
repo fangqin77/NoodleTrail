@@ -7,9 +7,13 @@ import java.util.List;
 
 public interface CheckinService {
 
-    Integer addCheckin(CheckinDTO dto);
+    CheckinVO addCheckin(CheckinDTO dto);
+
+    CheckinVO updateCheckinImages(Integer id, String userId, java.util.List<String> newImageUrls);
 
     List<CheckinVO> getUserCheckins(String userId, int page, int size);
+
+    List<CheckinVO> getAllCheckins(int page, int size, String city);
 
     CheckinVO getCheckinByIdAndUser(Integer id, String userId);
 

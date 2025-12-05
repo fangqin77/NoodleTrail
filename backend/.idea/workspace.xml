@@ -6,24 +6,25 @@
   <component name="ChangeListManager">
     <list default="true" id="4ca39d76-9943-46a1-934e-1f1bcce6a7a4" name="Changes" comment="完成陕西美食和非遗接口">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/checkin/controller/CheckinController.java" beforeDir="false" afterPath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/checkin/controller/CheckinController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/checkin/dto/CheckinDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/checkin/dto/CheckinDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/checkin/entity/UserCheckin.java" beforeDir="false" afterPath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/checkin/entity/UserCheckin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/checkin/mapper/CheckinMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/checkin/mapper/CheckinMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/checkin/service/CheckinService.java" beforeDir="false" afterPath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/checkin/service/CheckinService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/checkin/service/OssService.java" beforeDir="false" afterPath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/checkin/service/OssService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/checkin/service/impl/CheckinServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/checkin/service/impl/CheckinServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/checkin/vo/CheckinVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/checkin/vo/CheckinVO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/checklist/controller/ChecklistController.java" beforeDir="false" afterPath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/checklist/controller/ChecklistController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/checklist/dto/ChecklistDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/checklist/dto/ChecklistDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/checklist/entity/Checklist.java" beforeDir="false" afterPath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/checklist/entity/Checklist.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/checklist/mapper/ChecklistMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/checklist/mapper/ChecklistMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/checklist/service/ChecklistService.java" beforeDir="false" afterPath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/checklist/service/ChecklistService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/checklist/service/impl/ChecklistServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/checklist/service/impl/ChecklistServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/config/SecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/heritage/controller/ShaanxiIntangibleHeritageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/heritage/controller/ShaanxiIntangibleHeritageController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/heritage/experience/controller/HeritageExperienceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/heritage/experience/controller/HeritageExperienceController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/heritage/experience/mapper/HeritageExperienceMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/heritage/experience/mapper/HeritageExperienceMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/heritage/experience/service/HeritageExperienceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/heritage/experience/service/HeritageExperienceService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/heritage/experience/service/impl/HeritageExperienceServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/heritage/experience/service/impl/HeritageExperienceServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/user/service/WxUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/user/service/WxUserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NoodleTrail/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/NoodleTrail/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NoodleTrail/src/main/resources/mapper/ChecklistMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/NoodleTrail/src/main/resources/mapper/ChecklistMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/share/controller/ShareController.java" beforeDir="false" afterPath="$PROJECT_DIR$/NoodleTrail/src/main/java/com/example/noodletrail/share/controller/ShareController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NoodleTrail/src/main/resources/mapper/CheckinMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/NoodleTrail/src/main/resources/mapper/CheckinMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NoodleTrail/src/main/resources/mapper/HeritageExperienceMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/NoodleTrail/src/main/resources/mapper/HeritageExperienceMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NoodleTrail/src/main/resources/shaanxi_intangible_heritage.sql" beforeDir="false" afterPath="$PROJECT_DIR$/NoodleTrail/src/main/resources/shaanxi_intangible_heritage.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NoodleTrail/src/main/resources/user_checkin.sql" beforeDir="false" afterPath="$PROJECT_DIR$/NoodleTrail/src/main/resources/user_checkin.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NoodleTrail/src/main/resources/wx_user.sql" beforeDir="false" afterPath="$PROJECT_DIR$/NoodleTrail/src/main/resources/wx_user.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,7 +118,11 @@
       <workItem from="1764288477258" duration="4202000" />
       <workItem from="1764569153972" duration="12669000" />
       <workItem from="1764633987034" duration="621000" />
-      <workItem from="1764634741390" duration="11482000" />
+      <workItem from="1764634741390" duration="17994000" />
+      <workItem from="1764675633002" duration="1273000" />
+      <workItem from="1764677116146" duration="3699000" />
+      <workItem from="1764742112240" duration="13995000" />
+      <workItem from="1764894274464" duration="4380000" />
     </task>
     <task id="LOCAL-00001" summary="完成陕西美食和非遗接口">
       <option name="closed" value="true" />

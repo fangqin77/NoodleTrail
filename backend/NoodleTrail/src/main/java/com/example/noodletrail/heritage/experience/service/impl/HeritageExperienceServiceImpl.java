@@ -73,6 +73,14 @@ public class HeritageExperienceServiceImpl implements HeritageExperienceService 
         return count > 0;
     }
 
+    @Override
+    public void deleteByUserAndHeritage(String userId, Integer heritageId) {
+        if (heritageId == null) {
+            throw new RuntimeException("heritageId 不能为空");
+        }
+        mapper.deleteByUserAndHeritage(userId, heritageId);
+    }
+
     private HeritageExperienceDTO toDto(HeritageExperience e) {
         HeritageExperienceDTO dto = new HeritageExperienceDTO();
         dto.setId(e.getId());

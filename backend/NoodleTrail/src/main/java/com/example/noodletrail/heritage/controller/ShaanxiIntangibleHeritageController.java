@@ -12,6 +12,7 @@ import com.example.noodletrail.user.entity.WxUser;
 import com.example.noodletrail.user.service.WxUserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -108,6 +109,18 @@ public class ShaanxiIntangibleHeritageController {
             heritageExperienceService.create(experience);
             experienced = true;
         }
+        Map<String, Object> data = new HashMap<>();
+        data.put("experienced", experienced);
+        data.put("isExperienced", experienced);
+        return ApiResponse.ok(data);
+    }
+
+    // 取消体验标记
+    @DeleteMapping("/{id}/experience")
+    public ApiResponse<Map<String, Object>> cancelExperience(@PathVariable("id") Integer heritageId) {
+        String userOpenid = getCurrentUserOpenid();
+        heritageExperienceService.deleteByUserAndHeritage(userOpenid, heritageId);
+        boolean experienced = heritageExperienceService.hasExperience(userOpenid, heritageId);
         Map<String, Object> data = new HashMap<>();
         data.put("experienced", experienced);
         data.put("isExperienced", experienced);

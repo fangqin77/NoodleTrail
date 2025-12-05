@@ -3,8 +3,8 @@
 <mapper namespace="com.example.noodletrail.checkin.mapper.CheckinMapper">
 
     <insert id="insert" parameterType="com.example.noodletrail.checkin.entity.UserCheckin" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO user_checkin (user_id, content, location_name, longitude, latitude, image_urls)
-        VALUES (#{userId}, #{content}, #{locationName}, #{longitude}, #{latitude}, #{imageUrls})
+        INSERT INTO user_checkin (user_id, content, location_name, city, longitude, latitude, image_urls)
+        VALUES (#{userId}, #{content}, #{locationName}, #{city}, #{longitude}, #{latitude}, #{imageUrls})
     </insert>
 
     <select id="selectByUserId" resultType="com.example.noodletrail.checkin.entity.UserCheckin">
@@ -12,12 +12,44 @@
                user_id       AS userId,
                content,
                location_name AS locationName,
+               city,
                longitude,
                latitude,
                image_urls    AS imageUrls,
                create_time   AS createTime
         FROM user_checkin
         WHERE user_id = #{userId}
+        ORDER BY create_time DESC
+        LIMIT #{offset}, #{size}
+    </select>
+
+    <select id="selectAll" resultType="com.example.noodletrail.checkin.entity.UserCheckin">
+        SELECT id,
+               user_id       AS userId,
+               content,
+               location_name AS locationName,
+               city,
+               longitude,
+               latitude,
+               image_urls    AS imageUrls,
+               create_time   AS createTime
+        FROM user_checkin
+        ORDER BY create_time DESC
+        LIMIT #{offset}, #{size}
+    </select>
+
+    <select id="selectAllByCity" resultType="com.example.noodletrail.checkin.entity.UserCheckin">
+        SELECT id,
+               user_id       AS userId,
+               content,
+               location_name AS locationName,
+               city,
+               longitude,
+               latitude,
+               image_urls    AS imageUrls,
+               create_time   AS createTime
+        FROM user_checkin
+        WHERE city LIKE CONCAT('%', #{city}, '%')
         ORDER BY create_time DESC
         LIMIT #{offset}, #{size}
     </select>
@@ -35,6 +67,13 @@
         WHERE id = #{id}
           AND user_id = #{userId}
     </select>
+
+    <update id="updateImageUrls">
+        UPDATE user_checkin
+        SET image_urls = #{imageUrls}
+        WHERE id = #{id}
+          AND user_id = #{userId}
+    </update>
 
     <delete id="deleteByIdAndUser">
         DELETE FROM user_checkin

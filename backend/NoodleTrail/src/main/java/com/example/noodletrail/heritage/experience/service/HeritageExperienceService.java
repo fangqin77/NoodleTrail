@@ -16,4 +16,9 @@ public interface HeritageExperienceService {
     void delete(Long id, String userId);
 
     boolean hasExperience(String userId, Integer heritageId);
+
+    /**
+     * 取消指定非遗的体验标记（按用户 + heritageId 删除所有体验记录）
+     */
+    void deleteByUserAndHeritage(String userId, Integer heritageId);
 }
